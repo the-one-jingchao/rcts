@@ -2,6 +2,10 @@ import React from 'react';
 import './index.less'
 
 type HomePropsType = {};
+const openUrl = (url:any):void => {
+    if(url)
+        window.open(url, '_blank');
+}
 
 // 头部导航
 interface menuText {
@@ -16,31 +20,31 @@ const menuLst: menuText[] = [
         text: 'Marketplace',
         subText: 'COMING SOON',
         ac: false,
-        url: 'https://baidu.com',
+        url: '',
     },
     {
         text: 'Docs',
         subText: '',
         ac: false,
-        url: '',
+        url: 'https://docs.rentfun.io/',
     },
     {
         text: 'Forum',
         subText: '',
         ac: false,
-        url: '',
+        url: 'https://forum.rentfun.io/',
     },
     {
         text: 'Blog',
         subText: '',
         ac: false,
-        url: '',
+        url: 'https://mirror.xyz/rentfun.eth',
     },
     {
         text: 'Join Discord',
         subText: '',
         ac: true,
-        url: '',
+        url: 'https://discord.com/invite/P6gZVZByFG',
     }
 ];
 const THead:React.FC<HomePropsType> = () => {
@@ -48,12 +52,20 @@ const THead:React.FC<HomePropsType> = () => {
         if(url)
             window.open(url, '_blank');
     }
+    const className = (menu: any) => {
+        let className = 't-menu';
+        if(menu.ac)
+            className += ' ac';
+        if(menu.url)
+            className += ' cursor';
+        return className;
+    }
     return(
         <div className="t-head">
             <img className="t-logo" src={require('./images/logo.png')}/>
             {
                 menuLst.map((menu: menuText, idx: number) => {
-                    return <span onClick={menuClick.bind(this, menu.url)} className={[menu.ac ? 'ac' : '', 't-menu'].join('  ')} key={`thead${idx}`}>
+                    return <span onClick={openUrl.bind(this, menu.url)} className={className(menu)} key={`thead${idx}`}>
                         {menu.text}
                         <span className={['subText', menu.subText ? 'show' : ''].join(' ')}>{menu.subText}</span>
                     </span>
@@ -63,6 +75,20 @@ const THead:React.FC<HomePropsType> = () => {
     )
 }
 
+
+const TPublicBlock: React.FC<HomePropsType> = () => {
+    return(
+        <div className="t-block-tooter">
+            <span className="t-block-rent">Early Birds Get The Worm ($RENT)</span>
+            <img onClick={openUrl.bind(this, "https://discord.com/invite/P6gZVZByFG")} className="t-block-icon" src={require("./images/t1/t1-discord.png")} alt=""/>
+            <span onClick={openUrl.bind(this, "https://discord.com/invite/P6gZVZByFG")} className="t-block-text">Discord</span>
+            <span className="t-block-division">|</span>
+            <img onClick={openUrl.bind(this, "https://twitter.com/rentfun_io")} className="t-block-icon" src={require("./images/t1/t1-twitter.png")} alt=""/>
+            <span onClick={openUrl.bind(this, "https://twitter.com/rentfun_io")} className="t-block-text">Twitter</span>
+            <img className="t-block-coin" src={require("./images/t1/t1-coin.png")} alt=""/>
+        </div>
+    )
+}
 
 // 内容1
 const TSection1:React.FC<HomePropsType> = () => {
@@ -102,15 +128,7 @@ const TSection1:React.FC<HomePropsType> = () => {
                 <div className="t1-r-4-bg"></div>
                 <img className="t1-r-4" src={require("./images/t1/t1-r-4.png")} alt=""/>
             </div>
-            <div className="t-block-tooter">
-                <span className="t-block-rent">Early Birds Get The Worm ($RENT)</span>
-                <img className="t-block-icon" src={require("./images/t1/t1-discord.png")} alt=""/>
-                <span>Discord</span>
-                <span className="t-block-division">|</span>
-                <img className="t-block-icon" src={require("./images/t1/t1-twitter.png")} alt=""/>
-                <span>Twitter</span>
-                <img className="t-block-coin" src={require("./images/t1/t1-coin.png")} alt=""/>
-            </div>
+            <TPublicBlock />
         </div>
     )
 }
@@ -278,7 +296,7 @@ const TSection4:React.FC<HomePropsType> = () => {
                 }
             </div>
             <div className="t4-read">
-                <span>READ MORE</span>
+                <span onClick={openUrl.bind(this, "https://docs.rentfun.io/")}>READ MORE</span>
             </div>
         </div>
     )
@@ -383,15 +401,7 @@ const TSection5:React.FC<HomePropsType> = () => {
                     })
                 }
             </div>
-            <div className="t-block-tooter">
-                <span className="t-block-rent">Early Birds Get The Worm ($RENT)</span>
-                <img className="t-block-icon" src={require("./images/t1/t1-discord.png")} alt=""/>
-                <span>Discord</span>
-                <span className="t-block-division">|</span>
-                <img className="t-block-icon" src={require("./images/t1/t1-twitter.png")} alt=""/>
-                <span>Twitter</span>
-                <img className="t-block-coin" src={require("./images/t1/t1-coin.png")} alt=""/>
-            </div>
+            <TPublicBlock />
         </div>
     )
 }
