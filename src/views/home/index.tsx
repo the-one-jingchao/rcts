@@ -48,10 +48,6 @@ const menuLst: menuText[] = [
     }
 ];
 const THead:React.FC<HomePropsType> = () => {
-    const menuClick = (url:any) => {
-        if(url)
-            window.open(url, '_blank');
-    }
     const className = (menu: any) => {
         let className = 't-menu';
         if(menu.ac)
@@ -62,7 +58,7 @@ const THead:React.FC<HomePropsType> = () => {
     }
     return(
         <div className="t-head">
-            <img className="t-logo" src={require('./images/logo.png')}/>
+            <img className="t-logo" src={require('./images/logo.png')} alt=""/>
             {
                 menuLst.map((menu: menuText, idx: number) => {
                     return <span onClick={openUrl.bind(this, menu.url)} className={className(menu)} key={`thead${idx}`}>
