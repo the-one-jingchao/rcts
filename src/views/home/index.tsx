@@ -408,9 +408,9 @@ const TFoot:React.FC<HomePropsType> = () => {
     return(
         <div className="t-block t-public-padding p center">
             <div className="t-f-icon">
-                <img src={require("./images/foot/f1.png")} alt=""/>
-                <img className="f2" src={require("./images/foot/f2.png")} alt=""/>
-                <img src={require("./images/foot/f3.png")} alt=""/>
+                <img onClick={openUrl.bind(this, "https://discord.com/invite/P6gZVZByFG")} src={require("./images/foot/f1.png")} alt=""/>
+                <img onClick={openUrl.bind(this, "https://twitter.com/rentfun_io")} className="f2" src={require("./images/foot/f2.png")} alt=""/>
+                <img onClick={openUrl.bind(this, "https://github.com/RentFun")} src={require("./images/foot/f3.png")} alt=""/>
             </div>
             <div className="t-f-text">contact@rentfun.io</div>
             <div className="t-f-logo">

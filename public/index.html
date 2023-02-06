@@ -24,7 +24,21 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
+    <link rel="stylesheet" href="%PUBLIC_URL%/font.css" />
     <title>RentFun</title>
+    <script type="text/javascript">
+      (function () {
+        var language = '';
+        if(navigator.language){
+          language = navigator.language
+        } else {
+          language = navigator.browserLanguage;
+        }
+        if(language.indexOf('zh') > -1){
+          document.location.href = "./prohibit.html"
+        }
+      })();
+    </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
