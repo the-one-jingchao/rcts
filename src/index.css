@@ -9,8 +9,6 @@ html, body {
   padding: 0;
   overflow: hidden;
   font-family: Nunito;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 #root{
   width: 100%;
@@ -19,8 +17,5 @@ html, body {
   padding: 0;
   overflow: hidden;
 }
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
+
 

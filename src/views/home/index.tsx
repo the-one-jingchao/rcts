@@ -48,7 +48,7 @@ const menuLst: menuText[] = [
     }
 ];
 const THead:React.FC<HomePropsType> = () => {
-    const className = (menu: any) => {
+    const className = (menu: any):string => {
         let className = 't-menu';
         if(menu.ac)
             className += ' ac';
@@ -89,7 +89,7 @@ const TPublicBlock: React.FC<HomePropsType> = () => {
 // 内容1
 const TSection1:React.FC<HomePropsType> = () => {
     return(
-        <div className="t-block t1 flex between">
+        <div className="t-block t1">
             <div className="t1-left">
                 <div className="t1-title">Liquidity for <br/> NFT Utility</div>
                 <div className="t1-sub-title">
@@ -102,16 +102,14 @@ const TSection1:React.FC<HomePropsType> = () => {
             <div className="t1-right">
                 <img className="t1-point" src={require("./images/t1/t1-bg.png")} alt=""/>
                 <img className="t1-r-1" src={require("./images/t1/t1-r-1.png")} alt=""/>
-                <div className="t1-r-2">
-                    <img src={require("./images/t1/t1-r-2-icon.png")} alt=""/>
-                    <div className="t1-r-eth">0.004ETH</div>
-                    <div className="t1-r-rent">RENT</div>
-                </div>
+                <img className="t1-r-2" src={require("./images/t1/t1-r-2.png")} alt=""/>
                 <div className="t1-r-3">
                     <div className="t1-r-3-bg">
                         <img className="t1-r-3-icon" src={require("./images/t1/t1-r-3-icon.png")} alt=""/>
                         <div className="t1-r-eth">0.006ETH</div>
-                        <div className="t1-r-rent">RENT</div>
+                        <div className="t1-r-rent">
+                            <span>RENT</span>
+                        </div>
                     </div>
                     <span className="t1-3-line-1"></span>
                     <span className="t1-3-line-2"></span>
@@ -155,8 +153,11 @@ const t2Data: t2Block[] = [
     }
 ];
 const TSection2:React.FC<HomePropsType> = () => {
+    const className = (idx: number):string => {
+      return `t2-c-img c${idx + 1}`;
+    }
     return(
-        <div className="t-block t-public-padding">
+        <div className="t-block t-public-padding t2">
             <div className="t-public-title">Uncollateralized Marketplace</div>
             <div className="t-public-title sub">When you want to</div>
             <div className="t2-block">
@@ -165,7 +166,7 @@ const TSection2:React.FC<HomePropsType> = () => {
                        return  <div className="t2-content" key={`t2${idx}`}>
                            <div className="t2-bg">
                                 <div className="t2-c-title">{item.title}</div>
-                                <div className="t2-c-img"><img src={item.url} alt=""/></div>
+                                <div className={className(idx)}><img src={item.url} alt=""/></div>
                            </div>
                        </div>
                     })
@@ -211,7 +212,7 @@ const t3Data: t3Block[] = [
 ];
 const TSection3:React.FC<HomePropsType> = () => {
     return(
-        <div className="t-block t-public-padding p">
+        <div className="t-block t-public-padding t3">
             <div className="t-public-title">Features</div>
             <div className="t3-block">
                 {
@@ -259,12 +260,14 @@ const t4Data: t4Block[] = [
 ];
 const TSection4:React.FC<HomePropsType> = () => {
     return(
-        <div className="t-block t-public-padding p">
+        <div className="t-block t-public-padding t4">
             <div className="t-public-title">How It Works</div>
             <div className="t-public-title sub">
                 RentFun’s <span>Access Delegation Protocol</span> allows the NFT owners to easily and safely delegate the access rights of the NFTs to renters without losing their ownership.
             </div>
             <div className="t4-block">
+                <div className="t4-bg-1" ></div>
+                <div className="t4-bg-2" ></div>
                 {
                     t4Data.map((item: t4Block, idx: number) => {
                         if(idx%2 === 0){
@@ -352,28 +355,39 @@ const TSection5:React.FC<HomePropsType> = () => {
     const className = (idx: number) => {
         switch (idx) {
             case 0:
-                return 'i1';
+                return 't5-icon i1';
             case 1:
-                return 'i2';
+                return 't5-icon i2';
             case 3:
-                return 'i4';
+                return 't5-icon i4';
             case 5:
-                return 'i6';
+                return 't5-icon i6';
             case 6:
-                return 'i7';
+                return 't5-icon i7';
             case 7:
-                return 'i8';
+                return 't5-icon i8';
             default:
-                return '';
+                return 't5-icon';
         }
     }
     return (
-        <div className="t-block t-public-padding p">
+        <div className="t-block t-public-padding t5">
             <div className="t-public-title">Roadmap</div>
             <div className="t5-block">
                 {
                     t5Data.map((item: t5Block, idx: number) => {
-                        if(idx%2 === 0){
+                        if(idx === 2){
+                            return <div className="t5-list" key={`t5${idx}`}>
+                                <div className="t5-l-title">{item.title}</div>
+                                <div className="t5-l-description">{item.description}</div>
+                                <div className="t5-l-light">
+                                    <img className={[ className(idx) ].join(' ')} src={item.url} alt=""/>
+                                    <img className="t-small" src={item.url} alt=""/>
+                                </div>
+                                <div className="t5-l-bg"></div>
+                                <div className="t5-line"></div>
+                            </div>
+                        } else if(idx%2 === 0){
                             return <div className="t5-list" key={`t5${idx}`}>
                                 <div className="t5-l-title">{item.title}</div>
                                 <div className="t5-l-description">{item.description}</div>
@@ -397,7 +411,8 @@ const TSection5:React.FC<HomePropsType> = () => {
                     })
                 }
             </div>
-            <TPublicBlock />
+            {/*<TPublicBlock />*/}
+            <TFoot />
         </div>
     )
 }
@@ -406,7 +421,7 @@ const TSection5:React.FC<HomePropsType> = () => {
 //  底部
 const TFoot:React.FC<HomePropsType> = () => {
     return(
-        <div className="t-block t-public-padding p center">
+        <div className="t-block t-public-padding center">
             <div className="t-f-icon">
                 <img onClick={openUrl.bind(this, "https://discord.com/invite/P6gZVZByFG")} src={require("./images/foot/f1.png")} alt=""/>
                 <img onClick={openUrl.bind(this, "https://twitter.com/rentfun_io")} className="f2" src={require("./images/foot/f2.png")} alt=""/>
@@ -441,9 +456,9 @@ const Home:React.FC<HomePropsType> = () => {
             <div className="t-section s5">
                 <TSection5 />
             </div>
-            <div className="t-section f">
-                <TFoot />
-            </div>
+            {/*<div className="t-section f">*/}
+            {/*    <TFoot />*/}
+            {/*</div>*/}
         </div>
     );
 }
