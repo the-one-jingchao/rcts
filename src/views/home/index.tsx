@@ -96,7 +96,7 @@ const TSection1:React.FC<HomePropsType> = () => {
                     Renting <span>Original</span> NFTs Through <span>Access</span> <br/>
                     <span>Delegation</span> on
                     <img className="t1-title-icon" src={require(("./images/t1/t1-title.png"))} alt=""/>
-                    <label>ARBITRUM</label>
+                    <img className="t1-font" src={require("./images/t1/t1-font.png")} alt=""/>
                 </div>
             </div>
             <div className="t1-right">
@@ -243,7 +243,7 @@ const t4Data: t4Block[] = [
     },
     {
         url: require("./images/t4/t4-2.png"),
-        description: "Alice transfers the NFTs she want to lend out into this contract address;",
+        description: "Alice transfers the NFTs she wants to lend out into this contract address;",
     },
     {
         url: require("./images/t4/t4-3.png"),

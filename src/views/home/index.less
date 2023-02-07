@@ -48,6 +48,7 @@
     margin: 0 auto;
     height: 100px;
     position: relative;
+    z-index: 9;
     box-sizing: border-box;
     line-height: 100px;
     text-align: right;
@@ -301,12 +302,14 @@
             span{
                 font-weight: 700;
             }
-            label{
-                font-family: Sansation!important;
-                letter-spacing: 10px;
-                font-weight: 700;
+            .t1-font{
+                .width(377.71px);
+                .height(27.3px);
+                width: @width;
+                height: @height;
+                vertical-align: middle;
                 position: relative;
-                top: 1px;
+                top: -1px;
             }
             .t1-title-icon{
                 width: 20px;
