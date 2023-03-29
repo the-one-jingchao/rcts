@@ -1,8 +1,4 @@
 @font-face {
-    font-family: Nunito;
-    src: url("./font/Nunito/Nunito-VariableFont_wght.ttf");
-}
-@font-face {
-    font-family: Sansation;
-    src: url("./font/sansation/Sansation_Regular.ttf");
+    font-family: 'Plus Jakarta Sans';
+    src: url("./font/PlusJakartaSans/PlusJakartaSans-VariableFont_wght.ttf");
 }

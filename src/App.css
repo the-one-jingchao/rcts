@@ -6,6 +6,7 @@
   margin: 0;
   padding: 0;
   overflow: auto;
-  font-family: Nunito;
+  background: #44265e;
+  font-family: Plus Jakarta Sans;
   position: relative;
 }

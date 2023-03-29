@@ -1,7 +1,14 @@
-import React from 'react';
-import './index.less'
+import React, { useRef, useLayoutEffect, useState, useEffect, forwardRef } from 'react';
+import swiper, { Autoplay } from 'swiper';
+import 'swiper/css';
+import './index.less';
+
+swiper.use([ Autoplay ]);
 
 type HomePropsType = {};
+type ChildPropsType = {
+    animation: boolean
+};
 const openUrl = (url:any):void => {
     if(url)
         window.open(url, '_blank');
@@ -10,14 +17,20 @@ const openUrl = (url:any):void => {
 // 头部导航
 interface menuText {
     [key: string]: any,
-    text: string,
-    url: string,
-    subText: string,
-    ac: boolean
+        text: string,
+        url: string,
+        subText: string,
+        ac: boolean
 }
 const menuLst: menuText[] = [
     {
         text: 'Marketplace',
+        subText: 'COMING SOON',
+        ac: false,
+        url: '',
+    },
+    {
+        text: 'WonderBird',
         subText: 'COMING SOON',
         ac: false,
         url: '',
@@ -29,12 +42,6 @@ const menuLst: menuText[] = [
         url: 'https://docs.rentfun.io/',
     },
     {
-        text: 'Forum',
-        subText: '',
-        ac: false,
-        url: 'https://forum.rentfun.io/',
-    },
-    {
         text: 'Blog',
         subText: '',
         ac: false,
@@ -44,7 +51,7 @@ const menuLst: menuText[] = [
         text: 'Join Discord',
         subText: '',
         ac: true,
-        url: 'https://discord.com/invite/P6gZVZByFG',
+        url: 'http://discord.gg/rentfun',
     }
 ];
 const THead:React.FC<HomePropsType> = () => {
@@ -58,7 +65,7 @@ const THead:React.FC<HomePropsType> = () => {
     }
     return(
         <div className="t-head">
-            <img className="t-logo" src={require('./images/logo.png')} alt=""/>
+            <img className="t-logo" src={require('./images/s1/logo.png')} alt=""/>
             {
                 menuLst.map((menu: menuText, idx: number) => {
                     return <span onClick={openUrl.bind(this, menu.url)} className={className(menu)} key={`thead${idx}`}>
@@ -71,396 +78,420 @@ const THead:React.FC<HomePropsType> = () => {
     )
 }
 
-
-const TPublicBlock: React.FC<HomePropsType> = () => {
-    return(
-        <div className="t-block-tooter">
-            <span className="t-block-rent">Early Birds Get The Worm ($RENT)</span>
-            <img onClick={openUrl.bind(this, "https://discord.com/invite/P6gZVZByFG")} className="t-block-icon" src={require("./images/t1/t1-discord.png")} alt=""/>
-            <span onClick={openUrl.bind(this, "https://discord.com/invite/P6gZVZByFG")} className="t-block-text">Discord</span>
-            <span className="t-block-division">|</span>
-            <img onClick={openUrl.bind(this, "https://twitter.com/rentfun_io")} className="t-block-icon" src={require("./images/t1/t1-twitter.png")} alt=""/>
-            <span onClick={openUrl.bind(this, "https://twitter.com/rentfun_io")} className="t-block-text">Twitter</span>
-            <img className="t-block-coin" src={require("./images/t1/t1-coin.png")} alt=""/>
-        </div>
-    )
-}
-
-// 内容1
-const TSection1:React.FC<HomePropsType> = () => {
-    return(
-        <div className="t-block t1">
-            <div className="t1-left">
-                <div className="t1-title">Liquidity for <br/> NFT Utility</div>
-                <div className="t1-sub-title">
-                    Renting <span>Original</span> NFTs Through <span>Access</span> <br/>
-                    <span>Delegation</span> on
-                    <img className="t1-title-icon" src={require(("./images/t1/t1-title.png"))} alt=""/>
-                    <img className="t1-font" src={require("./images/t1/t1-font.png")} alt=""/>
-                </div>
-            </div>
-            <div className="t1-right">
-                <img className="t1-point" src={require("./images/t1/t1-bg.png")} alt=""/>
-                <img className="t1-r-1" src={require("./images/t1/t1-r-1.png")} alt=""/>
-                <img className="t1-r-2" src={require("./images/t1/t1-r-2.png")} alt=""/>
-                <div className="t1-r-3">
-                    <div className="t1-r-3-bg">
-                        <img className="t1-r-3-icon" src={require("./images/t1/t1-r-3-icon.png")} alt=""/>
-                        <div className="t1-r-eth">0.006ETH</div>
-                        <div className="t1-r-rent">
-                            <span>RENT</span>
-                        </div>
-                    </div>
-                    <span className="t1-3-line-1"></span>
-                    <span className="t1-3-line-2"></span>
-                    <span className="t1-3-line-3"></span>
-                    <span className="t1-3-line-4"></span>
-                    <span className="t1-3-line-5"></span>
-                    <span className="t1-3-line-6"></span>
-                    <span className="t1-3-line-7"></span>
-                </div>
-                <div className="t1-r-4-bg"></div>
-                <img className="t1-r-4" src={require("./images/t1/t1-r-4.png")} alt=""/>
-            </div>
-            <TPublicBlock />
-        </div>
-    )
-}
-
-
-// 内容2
-interface t2Block {
-    [key: string]: any,
-    title: string,
-    url: string,
-}
-const t2Data: t2Block[] = [
-    {
-        title: "Play to earn in the Treasure Games?",
-        url: require("./images/t2/t2-1.png"),
-    },
-    {
-        title: "Have fun in the Arbitrum Games?",
-        url: require("./images/t2/t2-2.png"),
-    },
-    {
-        title: "Experience having a Smol with over 2500 IQ?",
-        url: require("./images/t2/t2-3.png"),
-    },
-    {
-        title: "Build metaverse on a virtual Land on Arbitrum?",
-        url: require("./images/t2/t2-4.png"),
-    }
-];
-const TSection2:React.FC<HomePropsType> = () => {
-    const className = (idx: number):string => {
-      return `t2-c-img c${idx + 1}`;
-    }
-    return(
-        <div className="t-block t-public-padding t2">
-            <div className="t-public-title">Uncollateralized Marketplace</div>
-            <div className="t-public-title sub">When you want to</div>
-            <div className="t2-block">
-                {
-                    t2Data.map((item: t2Block, idx: number) => {
-                       return  <div className="t2-content" key={`t2${idx}`}>
-                           <div className="t2-bg">
-                                <div className="t2-c-title">{item.title}</div>
-                                <div className={className(idx)}><img src={item.url} alt=""/></div>
-                           </div>
-                       </div>
-                    })
-                }
-            </div>
-            <div className="t2-footer">
-                Don’t buy related NFTs first! <br/>
-                Try <span>RentFun</span> to rent <span>Original</span> NFTs and experience it first!
-            </div>
-        </div>
-    )
-}
-
-
-//  内容3
 interface t3Block {
     [key: string]: any,
     title: string,
-    url: string,
     description: string,
+    icon: string,
 }
 const t3Data: t3Block[] = [
     {
-        title: "No Collaterals Required",
-        url: require("./images/t3/t3-1.png"),
-        description: "RentFun will not require any kind of collateral from the renters, just the rental fees charged from lenders.",
+        icon: require('./images/s3/1.png'),
+        title: 'No Collaterals',
+        description: 'No collaterals  required for renters.',
     },
     {
-        title: "Rent 100% Original NFTs",
-        url: require("./images/t3/t3-2.png"),
-        description: "RentFun will not issue any kind of wrapped NFTs to the renter. The renters may rent the 100% original NFTs on RentFun’s marketplace.",
+        icon: require('./images/s3/2.png'),
+        title: 'Original NFTs',
+        description: 'No wrapped NFTs issued to make sure the renters have the 100% same experiences as the NFT owners.',
     },
     {
-        title: "Fully Secure for Lenders’ NFT",
-        url: require("./images/t3/t3-3.png"),
-        description: "RentFun creates an Access Delegation Protocol so that renters will only have the access rights of lender’s NFT to login and interact with the NFT issuers’ platform.",
-    },
-    {
-        title: "Automatic Rewards Split",
-        url: require("./images/t3/t3-4.png"),
-        description: "RentFun could support lenders to set the reward sharing percentage from rewards earned by renters with the NFT rented, and automatically claim the accrued rewards.",
+        icon: require('./images/s3/3.png'),
+        title: 'Rentable Address',
+        description: 'Could rent an address containing multiple NFTs to fully experience games that require multiple NFTs to play.',
     }
 ];
-const TSection3:React.FC<HomePropsType> = () => {
+
+interface t4Block {
+    [key: string]: any,
+    title: string,
+    description: string,
+    icon: string,
+}
+const t4Data: t4Block[] = [
+    {
+        icon: require('./images/s4/1.png'),
+        title: 'Your Keys, Your NFTs',
+        description: 'NFT owners maintain the exclusive ownership of the vault contract address that hold your NFTs.',
+    },
+    {
+        icon: require('./images/s4/2.png'),
+        title: 'Efficient Lending',
+        description: 'Higher capital efficiency for NFT owners by enabling to list multiple NFTs with a single click and attracting ample renters through targeted campaigns.',
+    },
+    {
+        icon: require('./images/s4/3.png'),
+        title: 'Renters Whitelist',
+        description: 'In addition to the public model, NFT owners can also opt for the private model to lend  NFTs to the whitelist addresses.',
+    }
+];
+
+interface t5Block {
+    icon: string,
+    url: string
+}
+const t5Data: t5Block[] = [
+    {
+        icon: require('./images/s5/1.png'),
+        url: 'https://twitter.com/Larvandweb3',
+    },
+    {
+        icon: require('./images/s5/2.png'),
+        url: 'https://twitter.com/immortalelixr',
+    },
+    {
+        icon: require('./images/s5/3.png'),
+        url: 'https://twitter.com/Blanklee3',
+    },
+    {
+        icon: require('./images/s5/4.png'),
+        url: 'https://twitter.com/berlinrobbery',
+    },
+    {
+        icon: require('./images/s5/5.png'),
+        url: 'https://twitter.com/memerberries',
+    },
+    {
+        icon: require('./images/s5/6.png'),
+        url: 'https://twitter.com/TheShred_',
+    },
+    {
+        icon: require('./images/s5/7.png'),
+        url: 'https://twitter.com/JackLucas045',
+    },
+    {
+        icon: require('./images/s5/8.png'),
+        url: 'https://twitter.com/0x_Astro',
+    },
+    {
+        icon: require('./images/s5/9.png'),
+        url: 'https://twitter.com/Kevin176732291',
+    },
+    {
+        icon: require('./images/s5/10.png'),
+        url: 'https://twitter.com/_martialfarts',
+    },
+
+];
+
+const TSection2 = (forwardRef((props:ChildPropsType, ref:any) => {
+    const { animation } = props;
     return(
-        <div className="t-block t-public-padding t3">
-            <div className="t-public-title">Features</div>
-            <div className="t3-block">
+        <div ref={ref} className={`t-section s2 flex ${animation ? 'anOpacity' : ''}`} >
+            <div className="t-flex bg">
+                <div className="t-bird"><img src={require("./images/s2/bird.svg").default} alt=""/></div>
+                <div className="t-2-title">Learn Access Delegation</div>
+                <div className="t-2-title-sub">
+                    RentFun proposes a brand new Access <br/>
+                    Delegation Protocol to ensure that the NFT <br/>
+                    owners only need to delegate the access <br/>
+                    rights of the NFTs to the renters.
+                </div>
+                <div className="t-operation center">
+                    <span onClick={openUrl.bind(this,'http://poc.rentfun.io/')} className="t-button bg">
+                        POC Demo
+                        <img src={require("./images/s2/arrow.png")} alt=""/>
+                    </span>
+                    <span onClick={openUrl.bind(this,'https://docs.rentfun.io/')} className="t-button">Docs</span>
+                </div>
+            </div>
+            <div className="t-flex r">
+                <div className="t-2-r-title">
+                    Make NFT rentals <br/>
+                    easy and secure <br/>
+                    through Access <br/>
+                    Delegation
+                </div>
+                <div className="t-2-r-title-second">SDK: Front-end  Plug & Play</div>
+                <div className="t-2-r-title-third">
+                    RentFun offers an SDK for NFT issuers to <br/>
+                    seamlessly integrate into their front-end <br/>
+                    codes within 2~3 hours.
+                </div>
+                <div className="t-operation">
+                    <span onClick={openUrl.bind(this,'https://docs.rentfun.io/integrations/rentfun-javascript-sdk')} className="t-button">
+                        Integration
+                         <img src={require("./images/s2/arrow.png")} alt=""/>
+                    </span>
+                </div>
+            </div>
+        </div>
+    )
+}));
+
+const TSection3 = (forwardRef((props:ChildPropsType, ref:any) => {
+    const { animation } = props;
+    return(
+        <div ref={ref} className={`t-section s3 ${animation ? 'anOpacity' : ''}`}>
+            <div className="t-3-title">Same Fun, Low Cost</div>
+            <div className="flex">
+                <div className="t-flex">
+                    {
+                        t3Data.map((item: t3Block, idx: number) => {
+                            return <div className={`t-3-list ${ + idx === 0 ? 'm' : ''}`} key={'t3' + idx}>
+                                <img className={`${idx === 1 ? 'i2' : ''} ${idx === 2 ? 'i3' : ''}`} src={item.icon} alt=""/>
+                                <div className="t-l-title">{item.title}</div>
+                                <div className="t-l-description">{item.description}</div>
+                            </div>
+                        })
+                    }
+                </div>
+                <div className="t-flex r p overflow">
+                    <img className={`t-bird ${animation ? 'an' : ''}`} src={require("./images/s3/bird.svg").default} alt=""/>
+                    <span className={`t-3-icon-1 ${animation ? 'an' : ''}`}></span>
+                    <span className={`t-3-icon-2 ${animation ? 'an' : ''}`}></span>
+                </div>
+            </div>
+        </div>
+    )
+}));
+
+const TSection4 = (forwardRef((props:ChildPropsType, ref:any) => {
+    const { animation } = props;
+    return(
+        <div ref={ref} className={`t-section s4 flex ${animation ? 'anOpacity' : ''}`}>
+            <div className="t-flex">
+                <img className="t-bird" src={require("./images/s4/bird.svg").default} alt=""/>
+            </div>
+            <div className="t-flex r">
+                <div className="t-3-title">Passive Earnings, 100% Ownership</div>
                 {
-                    t3Data.map((item: t3Block, idx: number) => {
-                        return <div className="t3-content" key={`t3${idx}`}>
-                            <div className="t3-c-img"><img className={[idx === 0 ? 'i1' : '', idx === 2 ? 'i3' : ''].join(' ')} src={item.url} alt=""/></div>
-                            <div className="t3-c-title">{item.title}</div>
-                            <div className="t3-c-description">{item.description}</div>
+                    t4Data.map((item: t3Block, idx: number) => {
+                        return <div className={`t-3-list ${ + idx === 0 ? 'm' : ''}`} key={'t3' + idx}>
+                            <img className={`${idx === 0 ? 'i4' : ''} ${idx === 1 ? 'i5' : ''} ${idx === 2 ? 'i6' : ''}`} src={item.icon} alt=""/>
+                            <div className="t-l-title">{item.title}</div>
+                            <div className="t-l-description">{item.description}</div>
                         </div>
                     })
                 }
             </div>
         </div>
     )
-}
+}));
 
+const TSectionSwiper = (forwardRef((props:ChildPropsType, ref:any) => {
+    const { animation } = props;
+    return(
+        <div ref={ref}  className={`t-swiper ${animation ? 'anOpacity' : ''}`}>
+            <div className="t-swiper-section">Our Ever Growing Community: </div>
+            <div className="t-swiper-section l swiper-container overflow">
+                <div className="swiper-wrapper">
+                    <div className={`t-slider swiper-slide`}>Co-contribute</div>
+                    <div className={`t-slider swiper-slide`}>Co-govern</div>
+                    <div className={`t-slider swiper-slide`}>Co-share</div>
+                </div>
+            </div>
+        </div>
+    )
+}));
 
-//  内容4
-interface t4Block {
-    [key: string]: any,
-    url: string,
-    description: string,
+const TSection6 = (forwardRef((props:ChildPropsType, ref:any) => {
+    const { animation } = props;
+    return(
+        <div ref={ref} className={`t-section s6 ${animation ? 'anOpacity' : ''}`} >
+            <div  onClick={openUrl.bind(this, 'https://docs.rentfun.io/early-bird-program')} className="t-block">
+                <span className="t-6-title">Early Birds Get The Worm ($RENT)</span>
+                <img className="t-img" src={require("./images/s6/1.png")} alt=""/>
+                <span className="t-6-title-sub">Learn More</span>
+                <span className="t-arrow"><img src={require("./images/s2/arrow.png")} alt=""/></span>
+            </div>
+        </div>
+    )
+}));
+
+interface t7Block {
+    icon: string,
+    url: string
 }
-const t4Data: t4Block[] = [
+const t7Data: t7Block[] = [
     {
-        url: require("./images/t4/t4-1.png"),
-        description: "NFT Owner Alice creates a contract address which is 100% under her control on the RentFun Platform ",
+        icon: require('./images/s7/1.png'),
+        url: 'http://discord.gg/rentfun'
     },
     {
-        url: require("./images/t4/t4-2.png"),
-        description: "Alice transfers the NFTs she wants to lend out into this contract address;",
+        icon: require('./images/s7/2.png'),
+        url: 'https://mirror.xyz/rentfun.eth'
     },
     {
-        url: require("./images/t4/t4-3.png"),
-        description: "Alice delegates the access right of this contract address to Renter Bob. After that, Both Alice and Bob have no rights to transfer the NFTs within this contract address.",
+        icon: require('./images/s7/3.png'),
+        url: 'https://twitter.com/rentfun_io'
     },
     {
-        url: require("./images/t4/t4-4.png"),
-        description: "Bob could login original NFT issued projects like games or metaverses which will identify Bob as a user of the rented NFT through RentFun’s SDK.",
+        icon: require('./images/s7/4.png'),
+        url: 'https://github.com/RentFun'
     },
     {
-        url: require("./images/t4/t4-5.png"),
-        description: "When the renting period ends, the access delegation between Alice’s NFT and Bob will end automatically. Bob will have no access rights to Alice's NFT any more.",
+        icon: require('./images/s7/5.png'),
+        url: 'https://forum.rentfun.io/'
     }
 ];
-const TSection4:React.FC<HomePropsType> = () => {
+
+const className7 = (idx: number):string => {
+    let className = 't-7-img';
+    if(idx === 0)
+        className += ' i0'
+    else if(idx === 1)
+        className += ' i1'
+    else if(idx === 2)
+        className += ' i2'
+    else if(idx === 3)
+        className += ' i3'
+    else if(idx === 4)
+        className += ' i4'
+    return className;
+}
+
+const TSection7: React.FC<ChildPropsType> = (props) => {
+    const { animation } = props;
     return(
-        <div className="t-block t-public-padding t4">
-            <div className="t-public-title">How It Works</div>
-            <div className="t-public-title sub">
-                RentFun’s <span>Access Delegation Protocol</span> allows the NFT owners to easily and safely delegate the access rights of the NFTs to renters without losing their ownership.
-            </div>
-            <div className="t4-block">
-                <div className="t4-bg-1" ></div>
-                <div className="t4-bg-2" ></div>
+        <div className={`t-section s7 ${animation ? 'anOpacity' : ''}`} >
+            <img className="t-point" src={require("./images/s1/point.svg").default} alt=""/>
+            <div className="t-7-title">Join us</div>
+            <div className="t-7-icon">
                 {
-                    t4Data.map((item: t4Block, idx: number) => {
-                        if(idx%2 === 0){
-                            return <div className="t4-list" key={`t4${idx}`}>
-                                <div className="t4-l-bg">
-                                    <div className="t4-bg">
-                                        <img src={item.url} alt=""/>
-                                    </div>
-                                </div>
-                                <div className="t4-l-num">{idx + 1}</div>
-                                <div className="t4-l-description">{item.description}</div>
-                            </div>
-                        } else {
-                            return <div className="t4-list n" key={`t4${idx}`}>
-                                <div className="t4-l-num">{idx + 1}</div>
-                                <div className="t4-l-description">{item.description}</div>
-                                <div className="t4-l-bg">
-                                    <div className="t4-bg">
-                                        <img src={item.url} alt=""/>
-                                    </div>
-                                </div>
-                            </div>
-                        }
+                    t7Data.map((item: t7Block, idx: number) => {
+                        return <img  onClick={openUrl.bind(this,item.url)}  className={className7(idx)} key={`class7${idx}`} src={item.icon} alt=""/>
                     })
                 }
             </div>
-            <div className="t4-read">
-                <span onClick={openUrl.bind(this, "https://docs.rentfun.io/")}>READ MORE</span>
+            <div className="t-footer flex">
+                <div className="t-text">© 2023 RentFun, All Rights Reserved.</div>
+                <div className="t-f-icon flex">
+                    <img src={require("./images/s7/logo.png")} alt=""/>
+                </div>
+                <div className="t-text r">
+                    <img src={require("./images/s7/email.png")} alt=""/>
+                    Blank@rentfun.io
+                </div>
             </div>
         </div>
     )
 }
 
+const Home:React.FC<HomePropsType> = (props, context) => {
+    const [ clientHeight, setHeight ] = useState<number>(0);
+    const [ top, setTop ] = useState<number>(0);
+    const [ svgHeight, setSvgHeight ] = useState<number>(0);
+    const [ animation2, setAnimation2 ] = useState<boolean>(false);
+    const [ animation3, setAnimation3 ] = useState<boolean>(false);
+    const [ animation4, setAnimation4 ] = useState<boolean>(false);
+    const [ animationSwiperRef, setAnimationSwiperRef ] = useState<boolean>(false);
+    const [ animation5, setAnimation5 ] = useState<boolean>(false);
+    const [ animation6, setAnimation6 ] = useState<boolean>(false);
+    const [ animation7, setAnimation7 ] = useState<boolean>(false);
+    const scale: number = (1920 / 1200);
+    const windowClientHeight: number = window.document.body.clientHeight;
+    const scrollNumber:number = windowClientHeight - clientHeight - top - (342 / scale);
+    const svgRef:any = useRef();
+    const imgRef:any = useRef();
+    const s2Ref:any = useRef();
+    const s3Ref:any = useRef();
+    const s4Ref:any = useRef();
+    const swiperRef:any = useRef();
+    const s5Ref:any = useRef();
+    const s6Ref:any = useRef();
 
-//  内容5
-interface t5Block {
-    [key: string]: any,
-    url: string,
-    description: string,
-    title: string,
-}
-const t5Data: t5Block[] = [
-    {
-        url: require("./images/t5/t5-1.png"),
-        title: "2022 Q4",
-        description: "Project Establishment",
-    },
-    {
-        url: require("./images/t5/t5-2.png"),
-        title: "2023 Q1",
-        description: "Official Website Launch",
-    },
-    {
-        url: require("./images/t5/t5-3.png"),
-        title: "2023 Q1",
-        description: "Development & Marketing Launch",
-    },
-    {
-        url: require("./images/t5/t5-4.png"),
-        title: "2023 Q2",
-        description: "Access Delegation Protocol Testnet Launch",
-    },
-    {
-        url: require("./images/t5/t5-5.png"),
-        title: "2023 Q2",
-        description: "Marketplace Testnet Release",
-    },
-    {
-        url: require("./images/t5/t5-6.png"),
-        title: "2023 Q3",
-        description: "Security Audit",
-    },
-    {
-        url: require("./images/t5/t5-7.png"),
-        title: "2023 Q3",
-        description: " Marketplace Mainnet Beta Launch",
-    },
-    {
-        url: require("./images/t5/t5-8.png"),
-        title: "2023 Q4",
-        description: "Eureka Club for RentFun SBT Holders Release",
-    }
-];
-const TSection5:React.FC<HomePropsType> = () => {
-    const className = (idx: number) => {
-        switch (idx) {
-            case 0:
-                return 't5-icon i1';
-            case 1:
-                return 't5-icon i2';
-            case 3:
-                return 't5-icon i4';
-            case 5:
-                return 't5-icon i6';
-            case 6:
-                return 't5-icon i7';
-            case 7:
-                return 't5-icon i8';
-            default:
-                return 't5-icon';
+    useLayoutEffect(() => {
+        setSvgHeight(svgRef.current.clientHeight)
+        setHeight(imgRef.current.clientHeight)
+        setTop(imgRef.current.y)
+        if(scrollNumber > 0) {
+            setAnimation2(true);
+        } else {
+            setAnimation2(false);
+        }
+    }, [imgRef, svgRef]);
+
+    useEffect(() => {
+        new swiper ('.swiper-container', {
+            direction: 'vertical', // 垂直切换选项
+            speed: 2000,
+            autoplay: {
+                delay: 2000,
+                disableOnInteraction: false
+            },
+            loop: true,
+        });
+        return () => {}
+    }, []);
+
+
+    const scroll:any = (event: any) => {
+        if((scrollNumber + event.target.scrollTop) > 0){
+            setAnimation2(true);
+        } else {
+            setAnimation2(false);
+        }
+        if((scrollNumber + event.target.scrollTop) > s2Ref.current.clientHeight){
+            setAnimation3(true);
+        } else {
+            setAnimation3(false);
+        }
+        if((scrollNumber + event.target.scrollTop) > (s2Ref.current.clientHeight + s3Ref.current.clientHeight)){
+            setAnimation4(true);
+        } else {
+            setAnimation4(false);
+        }
+        if((scrollNumber + event.target.scrollTop) > (s2Ref.current.clientHeight + s3Ref.current.clientHeight + s4Ref.current.clientHeight)){
+            setAnimationSwiperRef(true);
+        } else {
+            setAnimationSwiperRef(false);
+        }
+        if((scrollNumber + event.target.scrollTop) > (s2Ref.current.clientHeight + s3Ref.current.clientHeight + s4Ref.current.clientHeight + swiperRef.current.clientHeight)){
+            setAnimation5(true);
+        } else {
+            setAnimation5(false);
+        }
+        if((scrollNumber + event.target.scrollTop) > (s2Ref.current.clientHeight + s3Ref.current.clientHeight + s4Ref.current.clientHeight + swiperRef.current.clientHeight + s5Ref.current.clientHeight)){
+            setAnimation6(true);
+        } else {
+            setAnimation6(false);
+        }
+        if((scrollNumber + event.target.scrollTop) > (s2Ref.current.clientHeight + s3Ref.current.clientHeight + s4Ref.current.clientHeight + swiperRef.current.clientHeight + s5Ref.current.clientHeight + s6Ref.current.clientHeight)){
+            setAnimation7(true);
+        } else {
+            setAnimation7(false);
         }
     }
+
     return (
-        <div className="t-block t-public-padding t5">
-            <div className="t-public-title">Roadmap</div>
-            <div className="t5-block">
-                {
-                    t5Data.map((item: t5Block, idx: number) => {
-                        if(idx === 2){
-                            return <div className="t5-list" key={`t5${idx}`}>
-                                <div className="t5-l-title">{item.title}</div>
-                                <div className="t5-l-description">{item.description}</div>
-                                <div className="t5-l-light">
-                                    <img className={[ className(idx) ].join(' ')} src={item.url} alt=""/>
-                                    <img className="t-small" src={item.url} alt=""/>
-                                </div>
-                                <div className="t5-l-bg"></div>
-                                <div className="t5-line"></div>
-                            </div>
-                        } else if(idx%2 === 0){
-                            return <div className="t5-list" key={`t5${idx}`}>
-                                <div className="t5-l-title">{item.title}</div>
-                                <div className="t5-l-description">{item.description}</div>
-                                <div className="t5-l-light">
-                                    <img className={[ className(idx) ].join(' ')} src={item.url} alt=""/>
-                                </div>
-                                <div className="t5-l-bg"></div>
-                                <div className="t5-line"></div>
-                            </div>
-                        } else {
-                            return <div className="t5-list n" key={`t5${idx}`}>
-                                <div className="t5-l-title">{item.title}</div>
-                                <div className="t5-l-description">{item.description}</div>
-                                <div className="t5-l-light">
-                                    <img className={[ className(idx) ].join(' ')} src={item.url} alt=""/>
-                                </div>
-                                <div className="t5-l-bg"></div>
-                                <div className={[ 't5-line', idx === 7 ? 'none' : '' ].join(' ')}></div>
-                            </div>
-                        }
-                    })
-                }
-            </div>
-            {/*<TPublicBlock />*/}
-            <TFoot />
-        </div>
-    )
-}
-
-
-//  底部
-const TFoot:React.FC<HomePropsType> = () => {
-    return(
-        <div className="t-block t-public-padding center">
-            <div className="t-f-icon">
-                <img onClick={openUrl.bind(this, "https://discord.com/invite/P6gZVZByFG")} src={require("./images/foot/f1.png")} alt=""/>
-                <img onClick={openUrl.bind(this, "https://twitter.com/rentfun_io")} className="f2" src={require("./images/foot/f2.png")} alt=""/>
-                <img onClick={openUrl.bind(this, "https://github.com/RentFun")} src={require("./images/foot/f3.png")} alt=""/>
-            </div>
-            <div className="t-f-text">contact@rentfun.io</div>
-            <div className="t-f-logo">
-                <img src={require("./images/logo.png")} alt=""/>
-            </div>
-        </div>
-    )
-}
-
-const Home:React.FC<HomePropsType> = () => {
-    return (
-        <div className="t-home-section">
-            <div className="t-section h">
+        <div onScrollCapture={scroll} className="t-home-section">
+            <div style={{ height: `${clientHeight + top + (342 / scale)}px` }} className="t-section s1">
                 <THead />
+                <img className="t-point" src={require("./images/s1/point.svg").default} alt=""/>
+                <div style={{ height: `${clientHeight}px` }} className="t-box">
+                    <img ref={imgRef} className="t-point" src={require("./images/s1/sun.svg").default} alt=""/>
+                    <img className="t-logo-center" src={require("./images/s1/logo2.png")} alt=""/>
+                    <div className="t-title">Liquidity for NFT Utility</div>
+                    <div className="t-title-sub">Rent Original NFTs Through Access Delegation on Arbitrum</div>
+                    <div className="t-icon">
+                        <img onClick={openUrl.bind(this, 'https://twitter.com/rentfun_io')} src={require("./images/s1/3.png")} alt=""/>
+                        <img onClick={openUrl.bind(this, 'https://github.com/RentFun')}  src={require("./images/s1/2.png")} alt=""/>
+                        <img onClick={openUrl.bind(this, 'http://discord.gg/rentfun')}  src={require("./images/s1/1.png")} alt=""/>
+                    </div>
+                </div>
             </div>
-            <div className="t-section s1">
-                <TSection1 />
+            <TSection2 ref={s2Ref} animation={animation2}/>
+            <TSection3 ref={s3Ref} animation={animation3}/>
+            <TSection4 ref={s4Ref} animation={animation4}/>
+            <TSectionSwiper ref={swiperRef} animation={animationSwiperRef}/>
+            <div  ref={s5Ref}  className={`t-section s5 ${animation5 ? 'anOpacity' : ''}`} >
+                <img ref={svgRef} className="t-line" src={require("./images/s5/line.svg").default} alt=""/>
+                <div style={{ height: `${svgHeight}px` }} className="t-box">
+                    <div  className="t-pos">
+                        {
+                            t5Data.map((item: t5Block, idx: number) => {
+                                return  <img  onClick={openUrl.bind(this,item.url)} className={`t-icon-${idx + 1}`} key={`t-icon-${idx}`} src={item.icon} alt=""/>
+                            })
+                        }
+                    </div>
+                </div>
             </div>
-            <div className="t-section s2">
-                <TSection2 />
-            </div>
-            <div className="t-section s3">
-                <TSection3 />
-            </div>
-            <div className="t-section s4">
-                <TSection4 />
-            </div>
-            <div className="t-section s5">
-                <TSection5 />
-            </div>
-            {/*<div className="t-section f">*/}
-            {/*    <TFoot />*/}
-            {/*</div>*/}
+            <TSection6 ref={s6Ref} animation={animation6}/>
+            <TSection7 animation={animation7}/>
         </div>
     );
 }
+
 
 export default Home;
